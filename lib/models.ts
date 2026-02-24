@@ -25,7 +25,7 @@ export interface IBlog extends Document {
 export interface IManual extends Document {
   title: string;
   slug: string;
-  category: string;
+  category: 'Getting Started' | 'API Documentation' | 'Installation' | 'Configuration' | 'Best Practices';
   content: string;
   excerpt: string;
   author: mongoose.Types.ObjectId;
@@ -63,7 +63,7 @@ const blogSchema = new Schema<IBlog>(
     // This now matches the IBlog interface perfectly
     category: { 
       type: String, 
-      enum: ['Cement Industry', 'Power Plant', 'Condition Monitoring', 'Lubrication', 'NDT'], 
+      enum: ['Getting Started', 'API Documentation', 'Installation', 'Configuration', 'Best Practices'], 
       required: true 
     },
     content: { type: String, required: true },
@@ -80,7 +80,11 @@ const manualSchema = new Schema<IManual>(
   {
     title: { type: String, required: true },
     slug: { type: String, required: true, unique: true, lowercase: true },
-    category: { type: String, required: true },
+    category: { 
+      type: String, 
+      enum: ['Cement Industry', 'Power Plant', 'Condition Monitoring', 'Lubrication', 'NDT'], 
+      required: true 
+    },
     content: { type: String, required: true },
     excerpt: { type: String, required: true },
     author: { type: Schema.Types.ObjectId, ref: 'User', required: true },

@@ -81,7 +81,7 @@ export async function PUT(
     if (title) blog.title = title;
     if (category) blog.category = category; 
     if (content) blog.content = content;
-    if (excerpt) blog.excerpt = excerpt;
+    if (excerpt) blog.excerpt = excerpt;  
     if (tags) blog.tags = tags;
     if (imageUrl) blog.imageUrl = imageUrl;
 
