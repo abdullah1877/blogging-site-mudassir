@@ -52,6 +52,7 @@
     "@radix-ui/react-toast": "^1.2.15",
     "@vercel/analytics": "^1.6.1",
     "add": "^2.0.6",
+    "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.34.3",
     "radix-ui": "^1.4.3",
     "react-day-picker": "^9.13.2",
