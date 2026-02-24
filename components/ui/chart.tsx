@@ -47,7 +47,6 @@ function ChartContainer({
   >['children']
 }) {
   const uniqueId = React.useId()
-   const tooltipPayload = payload as Array<any> | undefined
   const chartId = `chart-${id || uniqueId.replace(/:/g, '')}`
 
   return (
@@ -107,7 +106,7 @@ const ChartTooltip = RechartsPrimitive.Tooltip
 
 function ChartTooltipContent({
   active,
-  payload,
+  tooltipPayload,
   className,
   indicator = 'dot',
   hideLabel = false,
@@ -128,6 +127,8 @@ function ChartTooltipContent({
     labelKey?: string
   }) {
   const { config } = useChart()
+
+  const tooltipPayload = payload as Array<any> | undefined
 
   const tooltipLabel = React.useMemo(() => {
     if (hideLabel || !payload?.length) {
