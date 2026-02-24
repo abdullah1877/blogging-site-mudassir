@@ -10,7 +10,8 @@ export interface IUser extends Document {
 export interface IBlog extends Document {
   title: string;
   slug: string;
-  categories : 'Cement Industry' | 'Power Plant' | 'Condition Monitoring' | 'Lubrication' | 'NDT';
+  // Fixed: changed from 'categories' to 'category' to match the schema
+  category: 'Cement Industry' | 'Power Plant' | 'Condition Monitoring' | 'Lubrication' | 'NDT';
   content: string;
   excerpt: string;
   author: mongoose.Types.ObjectId;
@@ -44,6 +45,8 @@ export interface IContact extends Document {
   createdAt: Date;
 }
 
+// --- Schemas ---
+
 const userSchema = new Schema<IUser>(
   {
     email: { type: String, required: true, unique: true, lowercase: true },
@@ -57,7 +60,12 @@ const blogSchema = new Schema<IBlog>(
   {
     title: { type: String, required: true },
     slug: { type: String, required: true, unique: true, lowercase: true },
-    category: { type: String, enum: ['Cement Industry', 'Power Plant', 'Condition Monitoring' , 'Lubrication' , 'NDT'], required: true },
+    // This now matches the IBlog interface perfectly
+    category: { 
+      type: String, 
+      enum: ['Cement Industry', 'Power Plant', 'Condition Monitoring', 'Lubrication', 'NDT'], 
+      required: true 
+    },
     content: { type: String, required: true },
     excerpt: { type: String, required: true },
     author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
@@ -94,9 +102,12 @@ const contactSchema = new Schema<IContact>(
   { timestamps: true }
 );
 
-// Create indexes for slug fields for faster queries
+// --- Indexes ---
 blogSchema.index({ slug: 1 });
 manualSchema.index({ slug: 1 });
+
+// --- Models ---
+// We use the pattern: check if model exists, if not, create it.
 
 export const User: Model<IUser> =
   mongoose.models.User || mongoose.model<IUser>('User', userSchema);

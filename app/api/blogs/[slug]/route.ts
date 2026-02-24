@@ -57,7 +57,7 @@ export async function PUT(
       );
     }
 
-    const { slug } = await params;
+   const { slug } = await params;
     const { title, category, content, excerpt, tags, imageUrl } = await req.json();
 
     const blog = await Blog.findOne({ slug });
@@ -77,17 +77,16 @@ export async function PUT(
       );
     }
 
-    // Update blog
+    // Update blog - Using the correct singular 'category'
     if (title) blog.title = title;
-    if (category) blog.categories = category;
+    if (category) blog.category = category; 
     if (content) blog.content = content;
     if (excerpt) blog.excerpt = excerpt;
     if (tags) blog.tags = tags;
     if (imageUrl) blog.imageUrl = imageUrl;
 
     await blog.save();
-
-    return NextResponse.json(
+        return NextResponse.json(
       { message: 'Blog updated successfully', blog },
       { status: 200 }
     );
