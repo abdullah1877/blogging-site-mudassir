@@ -9,7 +9,7 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Technical Blog - Learn & Grow',
+  title: 'Mudassir Rafiq - MR',
   description: 'Your ultimate destination for technical blogs, manuals, and expert engineering insights',
   generator: 'v0.app',
   icons: {

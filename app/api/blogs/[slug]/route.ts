@@ -79,7 +79,7 @@ export async function PUT(
 
     // Update blog
     if (title) blog.title = title;
-    if (category) blog.category = category;
+    if (category) blog.categories = category;
     if (content) blog.content = content;
     if (excerpt) blog.excerpt = excerpt;
     if (tags) blog.tags = tags;

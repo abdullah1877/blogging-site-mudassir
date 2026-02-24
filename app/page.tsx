@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, FileText, ShieldCheck, Zap, Globe, Cpu } from 'lucide-react';
+import { ArrowRight, FileText, Zap, Globe, Cpu } from 'lucide-react';
 import useSWR from 'swr';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
