@@ -47,6 +47,7 @@ function ChartContainer({
   >['children']
 }) {
   const uniqueId = React.useId()
+  const tooltipPayload = payload as Array<any> | undefined
   const chartId = `chart-${id || uniqueId.replace(/:/g, '')}`
 
   return (
