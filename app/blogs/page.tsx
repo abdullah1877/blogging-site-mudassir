@@ -25,10 +25,13 @@ export default function BlogsPage() {
 
   const categories = ['Cement Industry', 'Power Plant', 'Condition Monitoring' , 'Lubrication' , 'NDT'];
 
-  const filteredBlogs = blogs.filter((blog: any) =>
-    blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    blog.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredBlogs = blogs.filter((blog: any) => {
+    const excerpt = blog.excerpt || blog.description || '';
+    return (
+      blog.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      excerpt.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/10">
@@ -120,10 +123,10 @@ export default function BlogsPage() {
                   href={`/blogs/${blog.slug}`}
                   className="group bg-card rounded-xl overflow-hidden hover:shadow-lg transition-all border border-border hover:border-primary hover:-translate-y-1"
                 >
-                  {blog.imageUrl && (
+                  {(blog.imageUrl || blog.featuredImage) && (
                     <div className="w-full h-48 relative overflow-hidden bg-muted">
                       <img
-                        src={blog.imageUrl}
+                        src={blog.imageUrl || blog.featuredImage}
                         alt={blog.title}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform"
                       />
@@ -145,7 +148,7 @@ export default function BlogsPage() {
                     </h3>
 
                     <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                      {blog.excerpt}
+                      {blog.excerpt || blog.description}
                     </p>
 
                     <div className="flex flex-wrap gap-2 mb-4">
@@ -163,7 +166,7 @@ export default function BlogsPage() {
                       <div className="flex items-center gap-2">
                         <div className="w-8 h-8 rounded-full bg-primary/20"></div>
                         <span className="text-xs font-medium text-muted-foreground line-clamp-1">
-                          {blog.author?.name}
+                          {blog.author?.name || blog.author || 'demo-user'}
                         </span>
                       </div>
                       <span className="text-xs text-muted-foreground">

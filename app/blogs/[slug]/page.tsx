@@ -77,7 +77,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
           <div className="flex flex-col md:flex-row md:items-center gap-4 text-muted-foreground">
             <div className="flex items-center gap-2">
               <User size={16} />
-              <span>{blog.author?.name}</span>
+              <span>{blog.author?.name || blog.author || 'demo-user'}</span>
             </div>
             <div className="flex items-center gap-2">
               <Calendar size={16} />
@@ -91,10 +91,10 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
         </div>
 
         {/* Featured Image */}
-        {blog.imageUrl && (
+        {(blog.imageUrl || blog.featuredImage) && (
           <div className="mb-8 rounded-xl overflow-hidden shadow-lg h-96 bg-muted">
             <img
-              src={blog.imageUrl}
+              src={blog.imageUrl || blog.featuredImage}
               alt={blog.title}
               className="w-full h-full object-cover"
             />
@@ -106,7 +106,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
           <div className="prose prose-invert max-w-none">
             <div
               className="text-foreground leading-relaxed whitespace-pre-wrap space-y-4"
-              dangerouslySetInnerHTML={{ __html: blog.content }}
+              dangerouslySetInnerHTML={{ __html: blog.content || blog.description || '' }}
             />
           </div>
         </article>
@@ -136,7 +136,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 rounded-full bg-primary-foreground/20"></div>
             <div>
-              <p className="font-bold text-lg">{blog.author?.name}</p>
+              <p className="font-bold text-lg">{blog.author?.name || blog.author || 'demo-user'}</p>
               <p className="text-primary-foreground/80">Senior Technical Author</p>
             </div>
           </div>

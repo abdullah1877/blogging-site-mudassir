@@ -176,7 +176,7 @@ export default function Home() {
                       {blog.title}
                     </h3>
                     <p className="text-muted-foreground line-clamp-2 mb-8 flex-grow">
-                      {blog.excerpt}
+                      {blog.excerpt || blog.description}
                     </p>
                     <div className="flex items-center gap-3 pt-6 border-t border-border/50">
                       <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-primary to-accent" />

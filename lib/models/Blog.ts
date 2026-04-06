@@ -13,33 +13,73 @@ const blogSchema = new mongoose.Schema(
       unique: true,
       lowercase: true,
     },
-    excerpt: {
+
+    // ✅ SUPPORT OLD DB
+    description: {
       type: String,
-      required: true,
     },
-    content: {
+
+    featuredImage: {
       type: String,
-      required: true,
     },
-    category: {
-      type: String,
-      enum: ['Cement Industry', 'Power Plant', 'Condition Monitoring', 'Lubrication' , 'NDT'],
-      default: 'technical',
-    },
-    author: {
-      type: String,
-      default: "demo-user",
-    },
-    views: {
-      type: Number,
-      default: 0,
-    },
-    featured: {
+
+    active: {
       type: Boolean,
-      default: false,
+      default: true,
     },
+
+    // ✅ SUPPORT NEW DB
+ excerpt: {
+  type: String,
+  get: function (value: string): string {
+    return value || this.description;
   },
-  { timestamps: true }
+},
+  content: {
+  type: String,
+},
+
+  category: {
+  type: String,
+  enum: [
+    'Cement Industry',
+    'Power Plant',
+    'Condition Monitoring',
+    'Lubrication',
+    'NDT',
+    'Technical'
+  ],
+  default: 'Cement Industry',
+},
+
+  author: {
+  type: String,
+  default: 'demo-user',
+},
+
+  views: {
+  type: Number,
+  default: 0,
+},
+
+  featured: {
+  type: Boolean,
+  default: false,
+},
+
+imageUrl: {
+  type: String,
+  get: function (this: any, value: string): string {
+    return value || this.featuredImage;
+  },
+},
+  },
+{
+  collection: 'blogs',
+    timestamps: true,
+      toJSON: { getters: true, virtuals: true },
+  toObject: { getters: true, virtuals: true },
+}
 );
 
 blogSchema.index({ slug: 1 });

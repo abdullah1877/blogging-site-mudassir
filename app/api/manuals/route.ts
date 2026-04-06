@@ -2,9 +2,10 @@
   import { Manual } from '@/lib/models/Manual';
   import { verifyToken } from '@/lib/jwt';
   import { NextRequest, NextResponse } from 'next/server';
+// import { createInitialRSCPayloadFromFallbackPrerender } from 'next/dist/client/flight-data-helpers'; 
 
   // Generate slug from title
- function generateSlug(title: string) {
+function generateSlug(title: string) {
   return title
     .toLowerCase()
     .replace(/[^\w\s-]/g, "")

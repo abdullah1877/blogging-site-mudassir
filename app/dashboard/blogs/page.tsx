@@ -31,9 +31,15 @@ export default function ManageBlogsPage() {
     if (!confirm('Are you sure you want to delete this blog?')) return;
 
     try {
-      await axios.delete(`/api/blogs/${slug}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+    const authToken = localStorage.getItem('token');
+
+if (!authToken) {
+  throw new Error('User not authenticated');
+}
+
+await axios.delete(`/api/blogs/${slug}`, {
+  headers: { authorization: `Bearer ${authToken}` },
+});
       mutate();
     } catch (error) {
       alert('Failed to delete blog');
@@ -94,7 +100,7 @@ export default function ManageBlogsPage() {
                       <td className="px-6 py-4">
                         <div className="max-w-xs">
                           <p className="font-semibold text-foreground truncate">{blog.title}</p>
-                          <p className="text-xs text-muted-foreground truncate">{blog.excerpt}</p>
+                          <p className="text-xs text-muted-foreground truncate">{blog.excerpt || blog.description}</p>
                         </div>
                       </td>
                       <td className="px-6 py-4 text-sm text-muted-foreground capitalize hidden md:table-cell">
